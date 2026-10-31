@@ -1,0 +1,20 @@
+{
+  "app": "github-access",
+  "name": "GitHub access",
+  "service": {
+    "reads": {"kinds": ["weave.account"]},
+    "writes": ["github.added"],
+    "net": ["api.github.com"],
+    "uses": {"github": {"administration": "write", "metadata": "read"}},
+    "actions": [
+      {"name": "offers", "label": "See the repositories offered", "who": "members"},
+      {"name": "decline", "label": "Decline a repository here", "who": "maintainers", "input": [{"name": "id", "label": "Repository"}]},
+      {"name": "accept", "label": "Accept a declined repository again", "who": "maintainers", "input": [{"name": "id", "label": "Repository"}]}
+    ],
+    "version": "1.0"
+  },
+  "lists": [{"name": "repos", "title": "Repositories", "item": "access offer", "list": "offers", "add": {"hand": "github", "label": "Offer repositories of yours"}, "remove": {"action": "decline", "label": "Decline here"}, "use": {"account": "github", "label": "Get access"}, "covers": ["accept"]}],
+  "wasm": {
+    "component": "github-access.wasm"
+  }
+}
